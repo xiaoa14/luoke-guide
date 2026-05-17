@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>洛克王国手游攻略站 - 宠物资讯与刷级指南</title>
+    <style>
+        :root {
+            --primary-purple: #6c5ce7;
+            --dark-purple: #4834d4;
+            --accent-gold: #fbc531;
+            --bg-dark: #1a1a2e;
+            --bg-card: #16213e;
+            --text-main: #e6e6e6;
+            --text-muted: #a0a0c0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        header {
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(108, 92, 231, 0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 0 10px var(--primary-purple);
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: white;
+        }
+
+        /* 首屏 Hero */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #fff, var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        .cta-button {
+            padding: 0.8rem 2rem;
+            background: var(--primary-purple);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        /* 内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: white;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--primary-purple);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* 卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--dark-purple);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 宠物图鉴简版 */
+        .pet-list {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .pet-item {
+            text-align: center;
+            width: 150px;
+        }
+
+        .pet-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--bg-card);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border: 3px solid var(--primary-purple);
+            transition: transform 0.3s;
+        }
+
+        .pet-item:hover .pet-icon {
+            transform: scale(1.1);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            header { flex-direction: column; gap: 1rem; }
+            nav ul { padding-left: 0; }
+            nav ul li { margin: 0 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <header>
+        <div class="logo">洛克<span>攻略</span></div>
+        <nav>
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#pets">宠物图鉴</a></li>
+                <li><a href="#leveling">刷级攻略</a></li>
+                <li><a href="#bosses">Boss打法</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 首屏 -->
+    <section id="home" class="hero">
+        <h1>探索洛克王国手游无限可能</h1>
+        <p>最新鲜的《洛克王国：世界》手游资讯，最硬核的平民通关攻略与宠物培养指南。助你制霸全服！</p>
+        <a href="#leveling" class="cta-button">查看最新刷级路线</a>
+    </section>
+
+    <!-- 攻略卡片区 -->
+    <section class="container">
+        <h2 class="section-title">🔥 热门攻略推荐</h2>
+        <div class="card-grid">
+            <!-- 卡片 1: 刷级 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1533237264987-ae43347ae3c3?q=80&w=1000" alt="快速刷级">
+                <div class="card-content">
+                    <div>
+                        <span class="tag">必看</span>
+                        <span class="tag">升级</span>
+                    </div>
+                    <h3>48小时满级路线图</h3>
+                    <p>告别枯燥练级！详解当前版本最高效的经验副本与挂机点，合理分配体力，新手也能快速追上大部队。</p>
+                    <a href="#" class="cta-button" style="align-self: flex-start;">阅读详情</a>
+                </div>
+            </div>
+
+            <!-- 卡片 2: 平民宠物 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000" alt="平民神宠">
+                <div class="card-content">
+                    <div>
+                        <span class="tag">宠物</span>
+                        <span class="tag">零氪</span>
+                    </div>
+                    <h3>零氪党的春天：五大平民神宠</h3>
+                    <p>谁说没钱不能玩？盘点初期唾手可得却强破天的平民宠物，搭配得当轻松通关主线剧情。</p>
+                    <a href="#" class="cta-button" style="align-self: flex-start;">阅读详情</a>
+                </div>
+            </div>
+
+            <!-- 卡片 3: Boss打法 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000" alt="Boss挑战">
+                <div class="card-content">
+                    <div>
+                        <span class="tag">Boss</span>
+                        <span class="tag">阵容</span>
+                    </div>
+                    <h3>世界Boss「暗夜魔王」低配通关</h3>
+                    <p>高难Boss卡关？拆解暗夜魔王的技能轴，教你用控制流流派无伤磨死Boss，拿满首通奖励。</p>
+                    <a href="#" class="cta-button" style="align-self: flex-start;">阅读详情</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 宠物推荐区 -->
+    <section id="pets" class="container" style="background: var(--bg-card); border-radius: 15px; margin-top: 2rem;">
+        <h2 class="section-title">🌟 版本强势宠物一览</h2>
+        <div class="pet-list">
+            <div class="pet-item">
+                <div class="pet-icon">🦅</div>
+                <h4>烈焰雄鹰</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">爆发/火系主C</p>
+            </div>
+            <div class="pet-item">
+                <div class="pet-icon">🐢</div>
+                <h4>岩龟长老</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">肉盾/反伤坦克</p>
+            </div>
+            <div class="pet-item">
+                <div class="pet-icon">🦊</div>
+                <h4>魔法灵狐</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">控制/团队增益</p>
+            </div>
+            <div class="pet-item">
+                <div class="pet-icon">🐉</div>
+                <h4>深渊幼龙</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">群攻/后期大核</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2026 洛克王国手游攻略站. 本网站为玩家自发制作的爱好者站点，与官方无关。</p>
+        <p style="margin-top: 0.5rem;">联系作者 | 加入QQ群 | 投稿攻略</p>
+    </footer>
+
+    <script>
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 简单的卡片加载动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 初始隐藏卡片，然后观察
+        document.querySelectorAll('.card, .pet-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
